@@ -1,0 +1,16 @@
+{
+  "name": "phantom-debug-runtime",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node src/index.js",
+    "worker": "node src/worker.js",
+    "test": "node tests/run.js"
+  },
+  "dependencies": {
+    "ws": "^8.16.0",
+    "uuid": "^9.0.1",
+    "chalk": "^5.3.0"
+  }
+}
