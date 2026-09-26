@@ -2,20 +2,68 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
-
 | Version | Supported          |
 | ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| 1.x     | :white_check_mark: |
+| < 1.0   | :x:                |
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+If you discover a security vulnerability in **phantom_runtime_debug**, please report it responsibly by:
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+1. **Do NOT** open a public GitHub issue
+2. **Email** security details to: [your-email@example.com](mailto:your-email@example.com)
+3. Include:
+   - Description of the vulnerability
+   - Steps to reproduce (if applicable)
+   - Potential impact
+   - Suggested fix (if you have one)
+
+### Response Timeline
+- **Initial acknowledgment:** Within 48 hours
+- **Assessment:** Within 1 week
+- **Resolution/Patch:** Target 2-4 weeks depending on severity
+
+### Severity Levels
+- **Critical:** Immediate patch release
+- **High:** Release in next planned update
+- **Medium/Low:** Included in next regular release
+
+### Scope
+
+This project covers:
+- ✓ Code injection vulnerabilities
+- ✓ Authentication/authorization bypass
+- ✓ Sensitive data exposure
+- ✓ Denial of service
+
+Out of scope:
+- ✗ Social engineering attacks
+- ✗ Physical security vulnerabilities
+- ✗ Third-party dependency vulnerabilities (report to upstream maintainers)
+
+## Security Best Practices
+
+### For Users
+- Keep dependencies updated: `npm audit fix`
+- Use environment variables for configuration (never commit `.env`)
+- Enable GitHub's secret scanning on your forks
+- Review code before running untrusted scripts
+
+### For Contributors
+- Never commit secrets or credentials
+- Use `.gitignore` to exclude sensitive files
+- Run `npm audit` before submitting PRs
+- Avoid `eval()` and dynamic code execution
+- Validate all input payloads
+
+## Security Tools
+
+Enable these in your repository settings:
+- ✓ GitHub Secret Scanning
+- ✓ Dependabot (dependency updates)
+- ✓ Code scanning with CodeQL
+
+---
+
+**Last updated:** 2026-09-26
