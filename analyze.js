@@ -1,20 +1,23 @@
 const PATTERNS = [
   {
     id: 'undefined_var',
-    // Match the literal keyword `undefined` OR identifiers that look undeclared
-    // (bare camelCase/snake_case names used in expressions without prior let/const/var/function declaration)
     test: (code) => {
       if (/\bundefined\b/.test(code)) return true;
-      // Find all identifiers used in expressions
+
       const declared = new Set();
       const declPattern = /(?:let|const|var|function)\s+([a-zA-Z_$][a-zA-Z0-9_$]*)/g;
-      let m;
-      while ((m = declPattern.exec(code)) !== null) declared.add(m[1]);
-      // Find identifiers on RHS of assignments or in expressions (not declarations)
+      let match;
+      while ((match = declPattern.exec(code)) !== null) declared.add(match[1]);
+
       const usedPattern = /(?:=\s*|return\s+|\+\s*|\-\s*|\*\s*|\/\s*|\(\s*)([a-z_$][a-zA-Z0-9_$]{2,})(?!\s*[\(:=])/g;
-      while ((m = usedPattern.exec(code)) !== null) {
-        const id = m[1];
-        const builtins = new Set(['true','false','null','undefined','NaN','Infinity','Math','JSON','console','Object','Array','String','Number','Boolean','parseInt','parseFloat','isNaN','typeof','instanceof','void']);
+      while ((match = usedPattern.exec(code)) !== null) {
+        const id = match[1];
+        const builtins = new Set([
+          'true', 'false', 'null', 'undefined', 'NaN', 'Infinity', 'Math', 'JSON', 'console',
+          'Object', 'Array', 'String', 'Number', 'Boolean', 'parseInt', 'parseFloat', 'isNaN',
+          'typeof', 'Date', 'RegExp', 'Promise', 'Set', 'Map', 'WeakMap', 'WeakSet', 'Error',
+          'encodeURIComponent', 'decodeURIComponent'
+        ]);
         if (!declared.has(id) && !builtins.has(id)) return true;
       }
       return false;
@@ -46,7 +49,13 @@ const PATTERNS = [
 export async function analyze(input, ctx) {
   const issues = [];
 
-  if (!input.code && input.code !== '') {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) {
+    issues.push({ id: 'invalid_code', message: 'code must be a string', severity: 'error' });
+    ctx.logs.push({ stage: 'analyze', issues, timestamp: Date.now() });
+    return { issues, code: null };
+  }
+
+  if (!Object.prototype.hasOwnProperty.call(input, 'code')) {
     issues.push({ id: 'missing_code', message: 'Missing code payload', severity: 'error' });
     ctx.logs.push({ stage: 'analyze', issues, timestamp: Date.now() });
     return { issues, code: null };
