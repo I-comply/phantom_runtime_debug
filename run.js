@@ -1,4 +1,4 @@
-import { runPhantom } from '../src/phantom.js';
+import { runPhantom } from './phantom.js';
 
 const cases = [
   {
