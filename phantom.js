@@ -1,6 +1,6 @@
-import { analyze } from './pipeline/analyze.js';
-import { trace } from './pipeline/trace.js';
-import { repair } from './pipeline/repair.js';
+import { analyze } from './analyze.js';
+import { trace } from './trace.js';
+import { repair } from './repair.js';
 
 export async function runPhantom(input) {
   if (!input || typeof input !== 'object') {
