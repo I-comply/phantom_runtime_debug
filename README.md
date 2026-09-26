@@ -6,7 +6,7 @@ A lightweight JavaScript runtime that analyzes submitted code, traces detected i
 
 ## Requirements
 
-- Node.js 18 or newer
+- Node.js 20 or newer
 - npm
 
 ## Installation
